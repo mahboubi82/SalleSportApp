@@ -52,7 +52,8 @@
                     <th>PRENOM</th>
                     <th>EMAIL</th>
                     <th>CINE</th>
-                    <th>DATE NAISSANCE</th>
+                    <th>DATE INSCRIPTION</th>
+                    <th>DATE REGLEMENT</th>
                     <th>GSM</th>
                     <th>EN REGLE</th>
                     <th>SEX</th>
@@ -66,7 +67,8 @@
                     <td th:text="${p.getFirstName()}"></td>
                     <td th:text="${p.getEmail()}"></td>
                     <td th:text="${p.getCine()}"></td>
-                    <td th:text="${p.getBirthDate()}"></td>
+                    <td th:text="${p.getSubscriptionDate()}"></td>
+                    <td th:text="${p.getPayementDate()}"></td>
                     <td th:text="${p.getPhone()}"></td>
                     <td>
                         <a th:if="${p.isActive()}" style="font-size:1.2rem; color: cornflowerblue;">

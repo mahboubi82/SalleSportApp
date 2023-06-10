@@ -27,7 +27,8 @@ public class SalleSportApplication implements CommandLineRunner {
         memberRepository.save(Member.builder()
                 .firstName("aaaaaaaa")
                 .lastName("AAAAAAAAA")
-                .BirthDate("1999/03/09")
+                .payementDate(new Date())
+                .SubscriptionDate(new Date())
                 .phone("06600042800")
                 .cine("BH435271")
                 .email("NOUREDDINE@gmail.com")
@@ -38,7 +39,8 @@ public class SalleSportApplication implements CommandLineRunner {
         memberRepository.save(Member.builder()
                 .firstName("bbbbb")
                 .lastName("BBBBBBBBB")
-                .BirthDate("2012/11/26")
+                .payementDate(new Date())
+                .SubscriptionDate(new Date())
                 .phone("0600990082")
                 .cine("BH000000")
                 .email("SAMY@gmail.com")
@@ -46,9 +48,9 @@ public class SalleSportApplication implements CommandLineRunner {
                 .sex(Sex.M)
                 .build()
         );
-        Member member = new Member(null, "ccccc", "CCCCC", "TT0099998", "TATA@gmail.com", "1200/03/01", "06889967276", false, Sex.F);
+        //Member member = new Member(null, "ccccc", "CCCCC", "TT0099998", "TATA@gmail.com", "1200/03/01", "06889967276", false, Sex.F);
 
-        memberRepository.save(member);
+        //memberRepository.save(member);
 
     }
 }

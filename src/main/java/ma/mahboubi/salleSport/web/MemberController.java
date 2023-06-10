@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Sort.*;
 
@@ -63,10 +64,7 @@ public class MemberController {
         return "members";
     }
 
-    @GetMapping("/addMember")
-    public String addMember() {
-        return "addMember";
-    }
+
 
     @GetMapping("/deleteMember")
     public String deleteMember(Long id,
@@ -75,6 +73,16 @@ public class MemberController {
     ) {
         memberRepository.deleteById(id);
         return "redirect:/index?p=" + page + "&kw=" + keyword;
+    }
+    @GetMapping("/formMember")
+    public String formMember(Model model){
+        model.addAttribute("member",new Member());
+        return "formMember";
+    }
+    @PostMapping("/saveMember")
+    public String saveMember(Member member){
+        memberRepository.save(member);
+        return "redirect:/index?kw=" + member.getFirstName();
     }
 
 }

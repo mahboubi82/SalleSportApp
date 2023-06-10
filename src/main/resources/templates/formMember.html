@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Member</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row mt-5">
+        <div class="col-md-4 offset-4 ">
+            <div class="card">
+                <div class="card-header"> Nouveau Patient</div>
+                <div class="card-body">
+                    <div class="p-5">
+                        <form method="post" th:action="@{/saveMember}">
+
+                            <div class="mb-2">
+                                <label class="form-label">NOM</label>
+                                <input type="text" name="firstName" class="form-control" th:value="${member.firstName}">
+                                <span class="text-danger" th:errors="${member.firstName}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">PRENOM</label>
+                                <input type="text" name="lastName" class="form-control" th:value="${member.lastName}">
+                                <span class="text-danger" th:errors="${member.lastName}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">EMAIL</label>
+                                <input type="email" name="email" class="form-control" th:value="${member.email}">
+                                <span class="text-danger" th:errors="${member.email}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">CINE</label>
+                                <input type="text" name="cine" class="form-control" th:value="${member.cine}">
+                                <span class="text-danger" th:errors="${member.cine}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">DATE INSCRIPTION</label>
+                                <input type="date" name="subscriptionDate" class="form-control" th:value="${member.subscriptionDate}">
+                                <span class="text-danger" th:errors="${member.subscriptionDate}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">DATE REGLEMENT</label>
+                                <input type="date" name="payementDate" class="form-control" th:value="${member.payementDate}">
+                                <span class="text-danger" th:errors="${member.payementDate}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">GSM</label>
+                                <input type="text" name="phone" class="form-control" th:value="${member.phone}">
+                                <span class="text-danger" th:errors="${member.phone}"></span>
+                            </div>
+
+                                <div class="mb-2">
+                                    <label class="form-check-label">PAYEE</label>
+                                    <input type="checkbox" name="isActive" class="form-check-input" th:checked="${member.active}">
+                                    <span class="text-danger" th:errors="${member.active}"></span>
+                                </div>
+                            <div class="mb-2">
+                                <label class="form-label">SEX</label>
+                                <input type="text" name="sex" class="form-control" th:value="${member.sex}">
+                                <span class="text-danger" th:errors="${member.sex}"></span>
+                            </div>
+                            <!--<div class="mb-2">
+                                <label class="form-label">SEX</label>
+                                <input  name="sex"  th:selected="${member.sex}">
+                                <select class="form-select form-select-sm" >
+                                    <option selected>Home</option>
+                                    <option value="M">Home</option>
+                                    <option value="F">Femme</option>
+                                </select>
+                            </div>-->
+
+                            <!-- <div>
+                                 <video id="webcam" autoplay playsinline width="400" height="300"></video>
+                                 <canvas id="canvas"></canvas>
+                                 <a download onclick="takeAPicture()">SNAP</a>
+                                 <script>
+                                     const webCamElement = document.getElementById("webcam");
+                                     const canvasElement = document.getElementById("canvas");
+                                     const webcam= new Webcam(webCamElement,"user", canvasElement);
+                                     webcam.start();
+                                     function takeAPicture(){
+                                         let picture = webcam.snap();
+                                         document.querySelector("a").href=picture;
+                                         webcam.stop();
+                                     }
+                                 </script>
+                             </div>-->
+                            <button  class="btn btn-success"> Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
