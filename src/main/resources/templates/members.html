@@ -26,7 +26,13 @@
         <div class="card-header d-flex">
             <h3 class="card-title ">La liste des adhérents</h3>
             <form class="form-inline ms-auto  my-2 d-flex"  method="get" th:href="@{/index}">
-                <input class="form-control mr-sm-1"  placeholder="Tapez un nom" aria-label="Search" type="text" name="kw" th:value="${keyword}">
+                <input class="form-control mr-sm-1"
+                       placeholder="Tapez un nom"
+                       aria-label="Search"
+                       type="text"
+                       name="kw"
+                       th:value="${keyword}"
+                >
                 <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
             </form>
             <!--<div class="ms-auto p-1">
@@ -56,7 +62,7 @@
                     <th>DATE REGLEMENT</th>
                     <th>GSM</th>
                     <th>EN REGLE</th>
-                    <th>SEX</th>
+                    <th>GENRE</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -71,27 +77,27 @@
                     <td th:text="${p.getPayementDate()}"></td>
                     <td th:text="${p.getPhone()}"></td>
                     <td>
-                        <a th:if="${p.isActive()}" style="font-size:1.2rem; color: cornflowerblue;">
+                        <a th:if="${p.is_Active}" style="font-size:1.2rem; color: cornflowerblue;">
                             <i class="bi bi-person-fill-check"></i>
                         </a>
-                        <a th:unless="${p.isActive()}" style="font-size:1.2rem; color:red">
+                        <a th:unless="${p.is_Active}" style="font-size:1.2rem; color:red">
                             <i class="fa-solid fa-user"></i>
-
                         </a>
                     </td>
-                    <td th:text="${p.getSex()}"></td>
+                    <td th:text="${p.getGender()}"></td>
                     <td>
                         <a  th:href="@{/deleteMember(id=${p.id},kw=${keyword},p=${CurrentPage})}">
-
-                            <i class="fa-solid fa-battery-full"></i>
+<!--                            <i class="fa-solid fa-battery-full"></i>-->
                             <i  style="color: red" class="fa-solid fa-trash " ></i>
-                            <i class="fa fa-times-thin " aria-hidden="true"></i>
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-pen-to-square"></i>
+<!--                            <i class="fa fa-times-thin " aria-hidden="true"></i>-->
+<!--                            <i class="fa-solid fa-user"></i>-->
+                        </a>
+
+                        <a  th:href="@{/editMember(id=${p.id},kw=${keyword},p=${CurrentPage})}">
+                                <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
@@ -114,12 +120,12 @@
                             <span class="page-link" th:unless="${CurrentPage>0}" >Previous</span>
                         </li>
                         <li th:each="i:${#numbers.sequence(1,TotalPages)}">
-                            <div  th:class="${CurrentPage==i - 1 ? 'page-item active' : ''}">
-                            <a class="page-link " th:href="@{/index(p=${i}-1,kw=${keyword},sortField='id',sortDir=${sortDir})}"> [[${i}]] </a>
+                            <div  th:class="${CurrentPage==i - 1  ? 'page-item active' : ''}">
+                            <a class="page-link "th:if="${TotalPages!=0}" th:href="@{/index(p=${i - 1},kw=${keyword},sortField='id',sortDir=${sortDir})}"> [[${i}]] </a>
                             </div>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" th:if="${CurrentPage + 1 < TotalPages}" th:href="@{/index(p=${CurrentPage}+1,kw=${keyword})}">Next</a>
+                            <a class="page-link" th:if="${CurrentPage + 1 < TotalPages}" th:href="@{/index(p=${CurrentPage+1},kw=${keyword})}">Next</a>
                             <span class="page-link" th:unless="${CurrentPage + 1< TotalPages}" >Next</span>
                         </li>
                         <li class="page-item">

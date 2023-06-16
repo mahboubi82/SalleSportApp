@@ -3,7 +3,7 @@ package ma.mahboubi.salleSport.entities;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -23,15 +23,17 @@ public class Member {
     private String firstName;
     private  String lastName;
     private String cine;
+    @Email
     private String email;
     @Temporal(TemporalType.DATE)
     private Date payementDate;
     @Temporal(TemporalType.DATE)
     private Date SubscriptionDate;
     private String phone;
-    private boolean isActive;
+    private Boolean is_Active;
+
     //private Base64 photo;
-    private Sex sex;
+    private Gender gender;
     //private List<Subscription> subscriptions;
 
 

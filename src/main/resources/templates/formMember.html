@@ -7,26 +7,142 @@
 >
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Add New Member</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="row mt-5">
+    <div class="container p-2">
+    <div class="card ">
+        <div class="row mt-4 ">
+            <div class="col-md-6 offset-1">
+                <div class="container">
+                    <h2>Nouvel adhérent </h2>
+                    <form class="form-horizontal" method="post" th:action="@{/saveMember}">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="firstName">Nom :</label>
+                            <div class="col-sm-8">
+                                <input type="text" placeholder="Entrer Nom" name="firstName" id="firstName"
+                                       class="form-control"
+                                       th:value="${member.firstName}">
+                                <span class="text-danger" th:errors="${member.firstName}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="lastName">Prénom :</label>
+                            <div class="col-sm-8">
+                                <input type="text" placeholder="Entrer Prénom" name="lastName" id="lastName"
+                                       class="form-control" th:value="${member.lastName}">
+                                <span class="text-danger" th:errors="${member.lastName}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Email :</label>
+                            <div class="col-sm-8">
+                                <input type="email" placeholder="Entrer Email" name="email" id="email"
+                                       class="form-control"
+                                       th:value="${member.email}">
+                                <span class="text-danger" th:errors="${member.email}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="cine">CINE :</label>
+                            <div class="col-sm-8">
+                                <input type="text" placeholder="Entrer CINE" name="cine" id="cine" class="form-control"
+                                       th:value="${member.cine}">
+                                <span class="text-danger" th:errors="${member.cine}"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="subscriptionDate">Date d'inscription :</label>
+                            <div class="col-sm-8">
+                                <input type="date" name="subscriptionDate" id="subscriptionDate" class="form-control"
+                                       th:value="${member.subscriptionDate}">
+                                <span class="text-danger" th:errors="${member.subscriptionDate}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="payementDate">Date de payement :</label>
+                            <div class="col-sm-8">
+                                <input type="date" name="payementDate" id="payementDate" class="form-control"
+                                       th:value="${member.payementDate}">
+                                <span class="text-danger" th:errors="${member.payementDate}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="cine">Téléphone :</label>
+                            <div class="col-sm-8">
+                                <input type="text" placeholder="Entrer N° Téléphone" name="phone" id="phone"
+                                       class="form-control" th:value="${member.phone}">
+                                <span class="text-danger" th:errors="${member.phone}"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Genre :</label>
+                            <div class="col-sm-8">
+                            <div class="d-flex">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"  th:field="${member.gender}" value="Male" checked>
+
+                                    <label class="form-check-label" for="gridRadios1">
+                                        Home &nbsp;
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"  th:field="${member.gender}" value="Female">
+                                    <label class="form-check-label" for="gridRadios2">
+                                        Femme
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-10 offset-sm-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck1" name="is_Active" th:field="${member.is_Active}" >
+                                    <label class="form-check-label" for="gridCheck1">
+                                        Payé
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-auto">
+                                <button type="submit" class="btn btn-success">Enregistrer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<!--    <div class="row mt-5">
         <div class="col-md-4 offset-4 ">
             <div class="card">
-                <div class="card-header"> Nouveau Patient</div>
+                <div class="card-header"><h4>Nouveau Patient</h4></div>
                 <div class="card-body">
                     <div class="p-5">
-                        <form method="post" th:action="@{/saveMember}">
 
-                            <div class="mb-2">
+                        <form class="form-horizontal" method="post" th:action="@{/saveMember}">
+
+                            <div class="mb-2 ">
                                 <label class="form-label">NOM</label>
-                                <input type="text" name="firstName" class="form-control" th:value="${member.firstName}">
+                                <input type="text" name="firstName" class="form-control"
+                                       th:value="${member.firstName}">
                                 <span class="text-danger" th:errors="${member.firstName}"></span>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">PRENOM</label>
-                                <input type="text" name="lastName" class="form-control" th:value="${member.lastName}">
+                                <input type="text" name="lastName" class="form-control"
+                                       th:value="${member.lastName}">
                                 <span class="text-danger" th:errors="${member.lastName}"></span>
                             </div>
                             <div class="mb-2">
@@ -41,12 +157,14 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">DATE INSCRIPTION</label>
-                                <input type="date" name="subscriptionDate" class="form-control" th:value="${member.subscriptionDate}">
+                                <input type="date" name="subscriptionDate" class="form-control"
+                                       th:value="${member.subscriptionDate}">
                                 <span class="text-danger" th:errors="${member.subscriptionDate}"></span>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">DATE REGLEMENT</label>
-                                <input type="date" name="payementDate" class="form-control" th:value="${member.payementDate}">
+                                <input type="date" name="payementDate" class="form-control"
+                                       th:value="${member.payementDate}">
                                 <span class="text-danger" th:errors="${member.payementDate}"></span>
                             </div>
                             <div class="mb-2">
@@ -55,17 +173,32 @@
                                 <span class="text-danger" th:errors="${member.phone}"></span>
                             </div>
 
-                                <div class="mb-2">
-                                    <label class="form-check-label">PAYEE</label>
-                                    <input type="checkbox" name="isActive" class="form-check-input" th:checked="${member.active}">
-                                    <span class="text-danger" th:errors="${member.active}"></span>
-                                </div>
                             <div class="mb-2">
-                                <label class="form-label">SEX</label>
-                                <input type="text" name="sex" class="form-control" th:value="${member.sex}">
-                                <span class="text-danger" th:errors="${member.sex}"></span>
+                                <label class="form-check-label">PAYEE</label>
+                                <input type="checkbox" name="isActive" class="form-check-input"
+                                       th:checked="${member.active}">
+                                <span class="text-danger" th:errors="${member.active}"></span>
                             </div>
-                            <!--<div class="mb-2">
+                            <div class="mb-2 ">
+                                <label class="form-check-label ">GENRE :</label>
+                                <div class="form-check ">
+                                    <input type="radio" name="gender" class="form-check-input"
+                                           th:field="${member.gender}" value="Male" id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Home
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="gender" class="form-check-input"
+                                           th:field="${member.gender}" value="Female" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Femme
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            &lt;!&ndash;<div class="mb-2">
                                 <label class="form-label">SEX</label>
                                 <input  name="sex"  th:selected="${member.sex}">
                                 <select class="form-select form-select-sm" >
@@ -73,9 +206,9 @@
                                     <option value="M">Home</option>
                                     <option value="F">Femme</option>
                                 </select>
-                            </div>-->
+                            </div>&ndash;&gt;
 
-                            <!-- <div>
+                            &lt;!&ndash; <div>
                                  <video id="webcam" autoplay playsinline width="400" height="300"></video>
                                  <canvas id="canvas"></canvas>
                                  <a download onclick="takeAPicture()">SNAP</a>
@@ -90,14 +223,14 @@
                                          webcam.stop();
                                      }
                                  </script>
-                             </div>-->
-                            <button  class="btn btn-success"> Save</button>
+                             </div>&ndash;&gt;
+                            <button class="btn btn-success"> Save</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 
 </body>

@@ -1,6 +1,6 @@
 package ma.mahboubi.salleSport.entities;
 
-public enum Sex {
-    M,
-    F;
+public enum Gender {
+    Male,
+    Female;
 }

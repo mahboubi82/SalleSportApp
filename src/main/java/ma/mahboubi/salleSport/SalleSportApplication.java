@@ -1,15 +1,10 @@
 package ma.mahboubi.salleSport;
 
-import ma.mahboubi.salleSport.entities.Member;
-import ma.mahboubi.salleSport.entities.Sex;
 import ma.mahboubi.salleSport.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Date;
-import java.util.UUID;
 
 @SpringBootApplication
 
@@ -24,7 +19,7 @@ public class SalleSportApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        memberRepository.save(Member.builder()
+        /*memberRepository.save(Member.builder()
                 .firstName("aaaaaaaa")
                 .lastName("AAAAAAAAA")
                 .payementDate(new Date())
@@ -47,7 +42,7 @@ public class SalleSportApplication implements CommandLineRunner {
                 .isActive(false)
                 .sex(Sex.M)
                 .build()
-        );
+        );*/
         //Member member = new Member(null, "ccccc", "CCCCC", "TT0099998", "TATA@gmail.com", "1200/03/01", "06889967276", false, Sex.F);
 
         //memberRepository.save(member);

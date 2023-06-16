@@ -1,5 +1,6 @@
 package ma.mahboubi.salleSport.web;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import ma.mahboubi.salleSport.entities.Member;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +36,7 @@ public class MemberController {
 
         //Page<Member> memberPage=memberRepository.findAll(PageRequest.of(page,size));
         Page<Member> memberPage = memberRepository.findByLastNameContaining(keyword, PageRequest.of(page, size));
-        model.addAttribute("MembersList", memberPage.getContent());
+        model.addAttribute("MembersList", memberPage);
         model.addAttribute("Pages", new int[memberPage.getTotalPages()]);
         model.addAttribute("TotalPages", memberPage.getTotalPages());
         model.addAttribute("TotalItems", memberPage.getTotalElements());
@@ -80,7 +82,8 @@ public class MemberController {
         return "formMember";
     }
     @PostMapping("/saveMember")
-    public String saveMember(Member member){
+    public String saveMember(@Valid Member member,BindingResult bindingResult){
+        if (bindingResult.hasErrors()) return "formMember";
         memberRepository.save(member);
         return "redirect:/index?kw=" + member.getFirstName();
     }
