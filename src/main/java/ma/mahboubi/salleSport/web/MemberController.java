@@ -2,24 +2,19 @@ package ma.mahboubi.salleSport.web;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import ma.mahboubi.salleSport.entities.Member;
 import ma.mahboubi.salleSport.repository.MemberRepository;
 import ma.mahboubi.salleSport.service.MemberService;
+import ma.mahboubi.salleSport.util.FileUploadUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.data.domain.Sort.*;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -36,7 +31,7 @@ public class MemberController {
 
         //Page<Member> memberPage=memberRepository.findAll(PageRequest.of(page,size));
         Page<Member> memberPage = memberRepository.findByLastNameContaining(keyword, PageRequest.of(page, size));
-        model.addAttribute("MembersList", memberPage);
+        model.addAttribute("MembersList", memberPage.getContent());
         model.addAttribute("Pages", new int[memberPage.getTotalPages()]);
         model.addAttribute("TotalPages", memberPage.getTotalPages());
         model.addAttribute("TotalItems", memberPage.getTotalElements());
@@ -44,7 +39,6 @@ public class MemberController {
         model.addAttribute("keyword", keyword);
         return "members";
     }
-
     //@GetMapping("/index2")
     public String index2(Model model,
                          @RequestParam(name = "kw", defaultValue = "") String keyword,
@@ -66,8 +60,6 @@ public class MemberController {
         return "members";
     }
 
-
-
     @GetMapping("/deleteMember")
     public String deleteMember(Long id,
                                @RequestParam(name = "kw", defaultValue = "") String keyword,
@@ -82,10 +74,25 @@ public class MemberController {
         return "formMember";
     }
     @PostMapping("/saveMember")
-    public String saveMember(@Valid Member member,BindingResult bindingResult){
-        if (bindingResult.hasErrors()) return "formMember";
-        memberRepository.save(member);
+    //@RequestMapping(value = "/saveMember", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String saveMember( @Valid @ModelAttribute("member")Member member, BindingResult bindingResult, @RequestParam("photo")MultipartFile multipartFile) throws IOException {
+       //if (bindingResult.hasFieldErrors()) return "formMember";
+        if (!multipartFile.isEmpty()){
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            member.setPhoto(fileName);
+           Member saveMember=memberRepository.save(member);
+            String upload= "src/main/resources/static/images/" + saveMember.getFirstName();
+
+            FileUploadUtil.SaveFile(upload, fileName, multipartFile);
+        }  else{
+                member.setPhoto(null);
+                memberRepository.save(member);
+            }
+        //memberRepository.save(member);
         return "redirect:/index?kw=" + member.getFirstName();
     }
-
+    @GetMapping("/profile")
+    public String profile(){
+        return "takePicture";
+    }
 }

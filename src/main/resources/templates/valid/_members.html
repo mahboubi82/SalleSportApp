@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}"
+      layout:decorate="layout.html"
 >
 <head>
     <meta charset="UTF-8">
@@ -98,17 +98,12 @@
                                 <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </td>
-                    <td>
-
-                        <img class="rounded-circle" th:src="@{'images/' + ${ p.firstName} + '/' + ${p.photo}}" style="width: 60px;height: 60px;" >
-
-
-                    </td>
+                    <td th:text="${p.photo}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
+        <div class="card-footer ">
 
                 Total Items : [[${TotalItems}]] | Page [[${CurrentPage+1}]] of [[${TotalPages}]]
                 -

@@ -3,7 +3,8 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout.html"
+
+      layout:decorate="~{layout}"
 >
 <head>
     <meta charset="UTF-8">
@@ -13,224 +14,297 @@
 <body>
 <div layout:fragment="content">
     <div class="container p-2">
-    <div class="card ">
-        <div class="row mt-4 ">
-            <div class="col-md-6 offset-1">
-                <div class="container">
-                    <h2>Nouvel adhérent </h2>
-                    <form class="form-horizontal" method="post" th:action="@{/saveMember}">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="firstName">Nom :</label>
-                            <div class="col-sm-8">
-                                <input type="text" placeholder="Entrer Nom" name="firstName" id="firstName"
-                                       class="form-control"
-                                       th:value="${member.firstName}">
-                                <span class="text-danger" th:errors="${member.firstName}"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="lastName">Prénom :</label>
-                            <div class="col-sm-8">
-                                <input type="text" placeholder="Entrer Prénom" name="lastName" id="lastName"
-                                       class="form-control" th:value="${member.lastName}">
-                                <span class="text-danger" th:errors="${member.lastName}"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Email :</label>
-                            <div class="col-sm-8">
-                                <input type="email" placeholder="Entrer Email" name="email" id="email"
-                                       class="form-control"
-                                       th:value="${member.email}">
-                                <span class="text-danger" th:errors="${member.email}"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="cine">CINE :</label>
-                            <div class="col-sm-8">
-                                <input type="text" placeholder="Entrer CINE" name="cine" id="cine" class="form-control"
-                                       th:value="${member.cine}">
-                                <span class="text-danger" th:errors="${member.cine}"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="subscriptionDate">Date d'inscription :</label>
-                            <div class="col-sm-8">
-                                <input type="date" name="subscriptionDate" id="subscriptionDate" class="form-control"
-                                       th:value="${member.subscriptionDate}">
-                                <span class="text-danger" th:errors="${member.subscriptionDate}"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="payementDate">Date de payement :</label>
-                            <div class="col-sm-8">
-                                <input type="date" name="payementDate" id="payementDate" class="form-control"
-                                       th:value="${member.payementDate}">
-                                <span class="text-danger" th:errors="${member.payementDate}"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="cine">Téléphone :</label>
-                            <div class="col-sm-8">
-                                <input type="text" placeholder="Entrer N° Téléphone" name="phone" id="phone"
-                                       class="form-control" th:value="${member.phone}">
-                                <span class="text-danger" th:errors="${member.phone}"></span>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">Genre :</label>
-                            <div class="col-sm-8">
-                            <div class="d-flex">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"  th:field="${member.gender}" value="Male" checked>
-
-                                    <label class="form-check-label" for="gridRadios1">
-                                        Home &nbsp;
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"  th:field="${member.gender}" value="Female">
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Femme
-                                    </label>
+        <div class="card ">
+            <div class="row mt-4 ">
+                <div class="col-md-6 offset-1">
+                    <div class="container">
+                        <h2>Nouvel adhérent </h2>
+                        <form class="form-horizontal" method="post" action="uploadFile" th:action="@{/saveMember}"
+                              enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="firstName">Nom :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" placeholder="Entrer Nom" name="firstName" id="firstName"
+                                           class="form-control"
+                                           th:value="${member.firstName}">
+                                    <span class="text-danger" th:errors="${member.firstName}"></span>
                                 </div>
                             </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-10 offset-sm-2">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck1" name="is_Active" th:field="${member.is_Active}" >
-                                    <label class="form-check-label" for="gridCheck1">
-                                        Payé
-                                    </label>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="lastName">Prénom :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" placeholder="Entrer Prénom" name="lastName" id="lastName"
+                                           class="form-control" th:value="${member.lastName}">
+                                    <span class="text-danger" th:errors="${member.lastName}"></span>
                                 </div>
                             </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <div class="col-md-auto">
-                                <button type="submit" class="btn btn-success">Enregistrer</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-<!--    <div class="row mt-5">
-        <div class="col-md-4 offset-4 ">
-            <div class="card">
-                <div class="card-header"><h4>Nouveau Patient</h4></div>
-                <div class="card-body">
-                    <div class="p-5">
-
-                        <form class="form-horizontal" method="post" th:action="@{/saveMember}">
-
-                            <div class="mb-2 ">
-                                <label class="form-label">NOM</label>
-                                <input type="text" name="firstName" class="form-control"
-                                       th:value="${member.firstName}">
-                                <span class="text-danger" th:errors="${member.firstName}"></span>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">PRENOM</label>
-                                <input type="text" name="lastName" class="form-control"
-                                       th:value="${member.lastName}">
-                                <span class="text-danger" th:errors="${member.lastName}"></span>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">EMAIL</label>
-                                <input type="email" name="email" class="form-control" th:value="${member.email}">
-                                <span class="text-danger" th:errors="${member.email}"></span>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">CINE</label>
-                                <input type="text" name="cine" class="form-control" th:value="${member.cine}">
-                                <span class="text-danger" th:errors="${member.cine}"></span>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">DATE INSCRIPTION</label>
-                                <input type="date" name="subscriptionDate" class="form-control"
-                                       th:value="${member.subscriptionDate}">
-                                <span class="text-danger" th:errors="${member.subscriptionDate}"></span>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">DATE REGLEMENT</label>
-                                <input type="date" name="payementDate" class="form-control"
-                                       th:value="${member.payementDate}">
-                                <span class="text-danger" th:errors="${member.payementDate}"></span>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">GSM</label>
-                                <input type="text" name="phone" class="form-control" th:value="${member.phone}">
-                                <span class="text-danger" th:errors="${member.phone}"></span>
-                            </div>
-
-                            <div class="mb-2">
-                                <label class="form-check-label">PAYEE</label>
-                                <input type="checkbox" name="isActive" class="form-check-input"
-                                       th:checked="${member.active}">
-                                <span class="text-danger" th:errors="${member.active}"></span>
-                            </div>
-                            <div class="mb-2 ">
-                                <label class="form-check-label ">GENRE :</label>
-                                <div class="form-check ">
-                                    <input type="radio" name="gender" class="form-check-input"
-                                           th:field="${member.gender}" value="Male" id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Home
-                                    </label>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="email">Email :</label>
+                                <div class="col-sm-8">
+                                    <input type="email" placeholder="Entrer Email" name="email" id="email"
+                                           class="form-control"
+                                           th:value="${member.email}">
+                                    <span class="text-danger" th:errors="${member.email}"></span>
                                 </div>
-                                <div class="form-check">
-                                    <input type="radio" name="gender" class="form-check-input"
-                                           th:field="${member.gender}" value="Female" id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Femme
-                                    </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="cine">CINE :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" placeholder="Entrer CINE" name="cine" id="cine"
+                                           class="form-control"
+                                           th:value="${member.cine}">
+                                    <span class="text-danger" th:errors="${member.cine}"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="subscriptionDate">Date d'inscription
+                                    :</label>
+                                <div class="col-sm-8">
+                                    <input type="date" name="subscriptionDate" id="subscriptionDate"
+                                           class="form-control"
+                                           th:value="${member.subscriptionDate}">
+                                    <span class="text-danger" th:errors="${member.subscriptionDate}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="payementDate">Date de payement :</label>
+                                <div class="col-sm-8">
+                                    <input type="date" name="payementDate" id="payementDate" class="form-control"
+                                           th:value="${member.payementDate}">
+                                    <span class="text-danger" th:errors="${member.payementDate}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="cine">Téléphone :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" placeholder="Entrer N° Téléphone" name="phone" id="phone"
+                                           class="form-control" th:value="${member.phone}">
+                                    <span class="text-danger" th:errors="${member.phone}"></span>
                                 </div>
                             </div>
 
 
-                            &lt;!&ndash;<div class="mb-2">
-                                <label class="form-label">SEX</label>
-                                <input  name="sex"  th:selected="${member.sex}">
-                                <select class="form-select form-select-sm" >
-                                    <option selected>Home</option>
-                                    <option value="M">Home</option>
-                                    <option value="F">Femme</option>
-                                </select>
-                            </div>&ndash;&gt;
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Genre :</label>
+                                <div class="col-sm-8">
+                                    <div class="d-flex">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                   id="gridRadios1" th:field="${member.gender}" value="Male" checked>
 
-                            &lt;!&ndash; <div>
-                                 <video id="webcam" autoplay playsinline width="400" height="300"></video>
-                                 <canvas id="canvas"></canvas>
-                                 <a download onclick="takeAPicture()">SNAP</a>
-                                 <script>
-                                     const webCamElement = document.getElementById("webcam");
-                                     const canvasElement = document.getElementById("canvas");
-                                     const webcam= new Webcam(webCamElement,"user", canvasElement);
-                                     webcam.start();
-                                     function takeAPicture(){
-                                         let picture = webcam.snap();
-                                         document.querySelector("a").href=picture;
-                                         webcam.stop();
-                                     }
-                                 </script>
-                             </div>&ndash;&gt;
-                            <button class="btn btn-success"> Save</button>
+                                            <label class="form-check-label" for="gridRadios1">
+                                                Home &nbsp;
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                   id="gridRadios2" th:field="${member.gender}" value="Female">
+                                            <label class="form-check-label" for="gridRadios2">
+                                                Femme
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="gridCheck1" name="is_Active"
+                                               th:field="${member.is_Active}">
+                                        <label class="form-check-label" for="gridCheck1">
+                                            Payé
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="card mb-1 offset-2" style="max-width: 540px;">
+                                    <div class="row g-0 ">
+                                        <div class="col-md-8">
+
+                                            <div class="card-body">
+                                                <label for="fileImage">Image Profile</label>
+                                                <input type="file" name="photo" id="fileImage" class="form-control"
+                                                       accept="image/jpeg, image/png">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="image-preview" id="imagePreview">
+                                                <img src="" class="img-fluid" alt="walou">
+                                                <span class="image-preview__default-text">Image Preview</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                const inpFile = document.getElementById("fileImage");
+                                const previewContainer = document.getElementById("imagePreview");
+                                const previewImage = previewContainer.querySelector(".img-fluid");
+                                const previewDefaultText = previewContainer.querySelector(".image-preview__default-text")
+
+                                inpFile.addEventListener("change", function () {
+                                    const file = this.files[0];
+                                    console.log(file);
+
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        previewDefaultText.style.display = "none";
+                                        previewImage.style.display = "block";
+                                        reader.addEventListener("load", function () {
+                                            console.log(this);
+                                            previewImage.setAttribute("src", this.result);
+                                        });
+                                        reader.readAsDataURL(file);
+
+                                    } else {
+                                        previewImage.style.display = null;
+                                        previewDefaultText.style.display = null;
+                                    }
+                                })
+                            </script>
+                            <style>
+                                .image-preview {
+                                    width: 150px;
+                                    min-height: 100px;
+                                    border: 2px solid #dddddd;
+                                    margin: 5px;
+                                    /* Default text */
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+
+                                .img-fluid {
+                                    display: none;
+                                    width: 100%;
+                                }
+                            </style>
+
+
+                            <div class="form-group">
+                                <div class="col-md-auto">
+                                    <button type="submit" class="btn btn-success">Enregistrer</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
+    <!--    <div class="row mt-5">
+            <div class="col-md-4 offset-4 ">
+                <div class="card">
+                    <div class="card-header"><h4>Nouveau Patient</h4></div>
+                    <div class="card-body">
+                        <div class="p-5">
+
+                            <form class="form-horizontal" method="post" th:action="@{/saveMember}">
+
+                                <div class="mb-2 ">
+                                    <label class="form-label">NOM</label>
+                                    <input type="text" name="firstName" class="form-control"
+                                           th:value="${member.firstName}">
+                                    <span class="text-danger" th:errors="${member.firstName}"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">PRENOM</label>
+                                    <input type="text" name="lastName" class="form-control"
+                                           th:value="${member.lastName}">
+                                    <span class="text-danger" th:errors="${member.lastName}"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">EMAIL</label>
+                                    <input type="email" name="email" class="form-control" th:value="${member.email}">
+                                    <span class="text-danger" th:errors="${member.email}"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">CINE</label>
+                                    <input type="text" name="cine" class="form-control" th:value="${member.cine}">
+                                    <span class="text-danger" th:errors="${member.cine}"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">DATE INSCRIPTION</label>
+                                    <input type="date" name="subscriptionDate" class="form-control"
+                                           th:value="${member.subscriptionDate}">
+                                    <span class="text-danger" th:errors="${member.subscriptionDate}"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">DATE REGLEMENT</label>
+                                    <input type="date" name="payementDate" class="form-control"
+                                           th:value="${member.payementDate}">
+                                    <span class="text-danger" th:errors="${member.payementDate}"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">GSM</label>
+                                    <input type="text" name="phone" class="form-control" th:value="${member.phone}">
+                                    <span class="text-danger" th:errors="${member.phone}"></span>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-check-label">PAYEE</label>
+                                    <input type="checkbox" name="isActive" class="form-check-input"
+                                           th:checked="${member.active}">
+                                    <span class="text-danger" th:errors="${member.active}"></span>
+                                </div>
+                                <div class="mb-2 ">
+                                    <label class="form-check-label ">GENRE :</label>
+                                    <div class="form-check ">
+                                        <input type="radio" name="gender" class="form-check-input"
+                                               th:field="${member.gender}" value="Male" id="flexRadioDefault1" checked>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Home
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" name="gender" class="form-check-input"
+                                               th:field="${member.gender}" value="Female" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Femme
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                &lt;!&ndash;<div class="mb-2">
+                                    <label class="form-label">SEX</label>
+                                    <input  name="sex"  th:selected="${member.sex}">
+                                    <select class="form-select form-select-sm" >
+                                        <option selected>Home</option>
+                                        <option value="M">Home</option>
+                                        <option value="F">Femme</option>
+                                    </select>
+                                </div>&ndash;&gt;
+
+                                &lt;!&ndash;
+                                <div>
+                                     <video id="webcam" autoplay playsinline width="400" height="300"></video>
+                                     <canvas id="canvas"></canvas>
+                                     <a download onclick="takeAPicture()">SNAP</a>
+                                     <script>
+                                         const webCamElement = document.getElementById("webcam");
+                                         const canvasElement = document.getElementById("canvas");
+                                         const webcam= new Webcam(webCamElement,"user", canvasElement);
+                                         webcam.start();
+                                         function takeAPicture(){
+                                             let picture = webcam.snap();
+                                             document.querySelector("a").href=picture;
+                                             webcam.stop();
+                                         }
+                                     </script>
+                                 </div>&ndash;&gt;
+                                <button class="btn btn-success"> Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
 </div>
 
 </body>

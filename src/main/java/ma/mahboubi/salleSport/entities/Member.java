@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.InitBinder;
+
 import java.util.Date;
 
 @Entity
@@ -34,6 +36,8 @@ public class Member {
     private Boolean is_Active;
     //private Base64 photo;
     private Gender gender;
+    private String photo;
+
     //private List<Subscription> subscriptions;
 
 }
