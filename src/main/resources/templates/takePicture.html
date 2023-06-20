@@ -3,15 +3,13 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-
       layout:decorate="~{layout}"
 >
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-
-    <style>
+   <!-- <style>
         /* CSS comes here */
         #video {
             border: 1px solid black;
@@ -58,14 +56,25 @@
             font-family: Arial;
             text-align: center;
         }
-    </style>
+    </style>-->
+    <script>
+        let video = document.querySelector('video')
+        navigator.mediaDevices.getUserMedia({video:true})
+            .then((stream)=>{
+                video.srcObject =stream
+            })
+
+    </script>
+
     <title>PROFILE</title>
 </head>
 <body>
 <div layout:fragment="content">
    <h1>TAKE PICTURE</h1>
+    <button disabled>Take take photo</button>
+    <video></video>
 
-    <div class="container">
+<!--    <div class="container">
         <div class="contentarea">
             <h1>
                 Using Javascript to capture Photo
@@ -154,13 +163,6 @@
 
                         var data = canvas.toDataURL('image/png');
                         photo.setAttribute('src', data);
-
-                        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-                        let image_data_url = canvas.toDataURL('image/jpeg');
-
-                        // data url of the image
-                        console.log(image_data_url);
-
                     } else {
                         clearphoto();
                     }
@@ -168,7 +170,7 @@
                 window.addEventListener('load', startup, false);
             })();
         </script>
-    </div>
+    </div>-->
 </div>
 </body>
 </html>

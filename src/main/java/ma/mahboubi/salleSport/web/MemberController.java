@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -75,8 +76,8 @@ public class MemberController {
     }
     @PostMapping("/saveMember")
     //@RequestMapping(value = "/saveMember", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String saveMember( @Valid @ModelAttribute("member")Member member, BindingResult bindingResult, @RequestParam("photo")MultipartFile multipartFile) throws IOException {
-       //if (bindingResult.hasFieldErrors()) return "formMember";
+    public String saveMember( @Valid @ModelAttribute("member")Member member, BindingResult bindingResult, @RequestParam(value = "photo",required = false)MultipartFile multipartFile) throws IOException {
+       if (bindingResult.hasFieldErrors()) return "formMember";
         if (!multipartFile.isEmpty()){
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             member.setPhoto(fileName);
@@ -89,10 +90,17 @@ public class MemberController {
                 memberRepository.save(member);
             }
         //memberRepository.save(member);
-        return "redirect:/index?kw=" + member.getFirstName();
+        return "redirect:/index?kw=" + member.getLastName();
     }
     @GetMapping("/profile")
     public String profile(){
         return "takePicture";
     }
+
+    @InitBinder
+    public void setAllowedFields(WebDataBinder binder){
+        binder.setDisallowedFields("photo");
+    }
+
+
 }
