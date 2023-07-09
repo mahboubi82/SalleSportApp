@@ -13,6 +13,10 @@
     <script src="https://kit.fontawesome.com/f41d3fab71.js" crossorigin="anonymous"></script>
     <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.js"></script>-->
     <style>
+
+        body{
+            background: linear-gradient(to right,#00AAFF, #00FF6C);
+        }
         .fa-times-thin:before {
             content: '\00d7';
         }
@@ -24,7 +28,8 @@
 <div class="p-5">
     <div class="card">
         <div class="card-header d-flex">
-            <h3 class="card-title ">La liste des adhérents</h3>
+            <h3 class="card-title ">La liste des adhérents</h3></br>
+
             <form class="form-inline ms-auto  my-2 d-flex"  method="get" th:href="@{/index}">
                 <input class="form-control mr-sm-1"
                        placeholder="Tapez un nom"
@@ -74,8 +79,12 @@
                     <td th:text="${p.getFirstName()}"></td>
                     <td th:text="${p.getEmail()}"></td>
                     <td th:text="${p.getCine()}"></td>
-                    <td th:text="${p.getSubscriptionDate()}"></td>
-                    <td th:text="${p.getPayementDate()}"></td>
+                    <td
+                        th:text="${#dates.format(p.getSubscriptionDate(), 'dd-MM-yyyy')}"
+                    ></td>
+                    <td
+                            th:text="${#dates.format(p.getPayementDate(), 'dd-MM-yyyy')}"
+                    ></td>
                     <td th:text="${p.getPhone()}"></td>
                     <td>
                         <a th:if="${p.is_Active}" style="font-size:1.2rem; color: cornflowerblue;">
@@ -94,13 +103,13 @@
 <!--                            <i class="fa-solid fa-user"></i>-->
                         </a>
 
-                        <a  th:href="@{/editMember(id=${p.id},kw=${keyword},p=${CurrentPage})}">
+                        <a  th:href="@{/editMember(id=${p.id})}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </td>
                     <td>
 
-                        <img class="rounded-circle" th:src="@{'images/' + ${ p.firstName} + '/' + ${p.photo}}" style="width: 60px;height: 60px;" >
+                        <img class="rounded-circle" th:src="@{'images/' + ${ p.id} + '/' + ${p.photo}}" style="width: 60px;height: 60px;" >
 
 
                     </td>
@@ -110,8 +119,17 @@
         </div>
         <div class="card-footer">
 
-                Total Items : [[${TotalItems}]] | Page [[${CurrentPage+1}]] of [[${TotalPages}]]
-                -
+            <div class="d-flex justify-content-between  ">
+                <div class="p-2 ">
+                    Total Items : [[${TotalItems}]] | Page [[${CurrentPage+1}]] of [[${TotalPages}]]
+                    </div>
+                <div class="p-2 " th:text="${#temporals.format(localDateTime, 'dd-MM-yyyy')}"></div>
+            </div>
+
+
+<!--            <p th:text="${#temporals.format(localDateTime, 'dd-MM-yyyy HH:mm')}"></p>-->
+
+
                <!-- <span th:each="i:${#numbers.sequence(1,TotalPages)}">
                     <a class="text-decoration-none" th:href="@{/index(p=${i},kw=${keyword})}"> [[${i}]] </a>
                          &nbsp;

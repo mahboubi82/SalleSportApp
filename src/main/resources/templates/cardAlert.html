@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive Card Slider</title>
+</head>
+
+<div layout:fragment="content">
+    <body>
+    <div class="p-5">
+        <div class="card">
+            <div class="card-header d-flex">
+                <h3 class="card-title ">Payable mensuel à terme échu</h3>
+
+                <form class="form-inline ms-auto  my-2 d-flex"  method="get" th:href="@{/indexAlert}">
+                    <input class="form-control mr-sm-1"
+                           placeholder="Tapez un nom"
+                           aria-label="Search"
+                           type="text"
+                           name="kw"
+                           th:value="${keyword}"
+                    >
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+                <!--<div class="ms-auto p-1">
+                    <form method="get" th:href="@{/index}">
+                        <input type="text" name="kw"
+                               th:value="${keyword}"
+                               placeholder="Tapez un nom">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>-->
+            </div>
+
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <!--                    <th><a  th:href="@{'/index?p=' + ${CurrentPage} + '&sortField=id&sortDir=' + ${reverseSortDir}}">ID</a></th>
+                                            <th><a th:href="@{'/index?p=' + ${CurrentPage} + '&sortField=lastName&sortDir=' + ${reverseSortDir}}">NOM</a></th>
+                                            <th><a th:href="@{'/index?p=' + ${CurrentPage} + '&sortField=firstName&sortDir=' + ${reverseSortDir}}">PRENOM</a></th>-->
+                        <th>ID</th>
+                        <th>NOM</th>
+                        <th>PRENOM</th>
+                        <th>EMAIL</th>
+                        <th>CINE</th>
+                        <th>DATE INSCRIPTION</th>
+                        <th>DATE REGLEMENT</th>
+                        <th>GSM</th>
+                        <th>EN REGLE</th>
+                        <th>GENRE</th>
+                        <th>Action</th>
+                        <th>PHOTO</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+
+
+                    <tr th:each="p:${MembersList}" >
+
+
+
+                        <td th:text="${p.getId()}"></td>
+                        <td th:text="${p.getLastName()}"></td>
+                        <td th:text="${p.getFirstName()}"></td>
+                        <td th:text="${p.getEmail()}"></td>
+                        <td th:text="${p.getCine()}"></td>
+                        <td
+                                th:text="${#dates.format(p.getSubscriptionDate(), 'dd-MM-yyyy')}"
+                        ></td>
+                        <td
+                                th:text="${#dates.format(p.getPayementDate(), 'dd-MM-yyyy')}"
+                        ></td>
+                        <td th:text="${p.getPhone()}"></td>
+
+                        <td>
+                            <a th:if="${p.is_Active}" style="font-size:1.2rem; color: cornflowerblue;">
+                                <i class="bi bi-person-fill-check"></i>
+                            </a>
+                            <a th:unless="${p.is_Active}" style="font-size:1.2rem; color:red">
+                                <i class="fa-solid fa-user"></i>
+                            </a>
+                        </td>
+                        <td th:text="${p.getGender()}"></td>
+                        <td>
+                            <a  th:href="@{/deleteMember(id=${p.id},kw=${keyword},p=${CurrentPage})}">
+                                <!--                            <i class="fa-solid fa-battery-full"></i>-->
+                                <i  style="color: red" class="fa-solid fa-trash " ></i>
+                                <!--                            <i class="fa fa-times-thin " aria-hidden="true"></i>-->
+                                <!--                            <i class="fa-solid fa-user"></i>-->
+                            </a>
+
+                            <a  th:href="@{/editMember(id=${p.id})}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                        <td>
+
+                            <img class="rounded-circle" th:src="@{'images/' + ${ p.id} + '/' + ${p.photo}}" style="width: 60px;height: 60px;" >
+
+
+                        </td>
+                            </input>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+
+                Total Items : [[${TotalItems}]] | Page [[${CurrentPage+1}]] of [[${TotalPages}]]
+                -
+                <!-- <span th:each="i:${#numbers.sequence(1,TotalPages)}">
+                     <a class="text-decoration-none" th:href="@{/index(p=${i},kw=${keyword})}"> [[${i}]] </a>
+                          &nbsp;
+                 </span>-->
+                <nav aria-label="">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" th:if="${CurrentPage>0}" th:href="@{/index(p=0,kw=${keyword})}">First</a>
+                            <span class="page-link" th:unless="${CurrentPage>0}" >First</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:if="${CurrentPage>0}" th:href="@{/index(p=${CurrentPage - 1},kw=${keyword})}">Previous</a>
+                            <span class="page-link" th:unless="${CurrentPage>0}" >Previous</span>
+                        </li>
+                        <li th:each="i:${#numbers.sequence(1,TotalPages)}">
+                            <div  th:class="${CurrentPage==i - 1  ? 'page-item active' : ''}">
+                                <a class="page-link "th:if="${TotalPages!=0}" th:href="@{/index(p=${i - 1},kw=${keyword},sortField='id',sortDir=${sortDir})}"> [[${i}]] </a>
+                            </div>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:if="${CurrentPage + 1 < TotalPages}" th:href="@{/index(p=${CurrentPage+1},kw=${keyword})}">Next</a>
+                            <span class="page-link" th:unless="${CurrentPage + 1< TotalPages}" >Next</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:if="${CurrentPage < TotalPages - 1}" th:href="@{/index(p=${TotalPages - 1},kw=${keyword})}">Last</a>
+                            <span class="page-link" th:unless="${CurrentPage < TotalPages - 1}" >Last</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+    </body>
+</div>
+</html>

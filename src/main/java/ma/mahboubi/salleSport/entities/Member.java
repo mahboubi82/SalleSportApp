@@ -24,6 +24,7 @@ public class Member {
     @NotBlank
     @Size(min =4,max =25 )
     private String firstName;
+    @Size(min =4,max =25 )
     private  String lastName;
     private String cine;
     @Email
@@ -31,7 +32,9 @@ public class Member {
     @Temporal(TemporalType.DATE)
     private Date payementDate;
     @Temporal(TemporalType.DATE)
-    private Date SubscriptionDate;
+    private Date expiryDate;
+    @Temporal(TemporalType.DATE)
+    private Date subscriptionDate;
     private String phone;
     private Boolean is_Active;
     //private Base64 photo;

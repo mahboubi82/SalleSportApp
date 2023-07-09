@@ -9,168 +9,72 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-   <!-- <style>
-        /* CSS comes here */
-        #video {
-            border: 1px solid black;
-            width: 320px;
-            height: 240px;
-        }
-
-        #photo {
-            border: 1px solid black;
-            width: 320px;
-            height: 240px;
-        }
-
-        #canvas {
-            display: none;
-        }
-
-        .camera {
-            width: 340px;
-            display: inline-block;
-        }
-
-        .output {
-            width: 340px;
-            display: inline-block;
-        }
-
-        #startbutton {
-            display: block;
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            bottom: 36px;
-            padding: 5px;
-            background-color: #6a67ce;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 1.0);
-            cursor: pointer;
-        }
-
-        .contentarea {
-            font-size: 16px;
-            font-family: Arial;
-            text-align: center;
-        }
-    </style>-->
-    <script>
-        let video = document.querySelector('video')
-        navigator.mediaDevices.getUserMedia({video:true})
-            .then((stream)=>{
-                video.srcObject =stream
-            })
-
-    </script>
-
     <title>PROFILE</title>
+
 </head>
 <body>
 <div layout:fragment="content">
-   <h1>TAKE PICTURE</h1>
-    <button disabled>Take take photo</button>
-    <video></video>
 
-<!--    <div class="container">
-        <div class="contentarea">
-            <h1>
-                Using Javascript to capture Photo
-            </h1>
-            <div class="camera">
-                <video id="video">Video stream not available.</video>
-            </div>
-            <div><button id="startbutton">Take photo</button></div>
-            <canvas id="canvas"></canvas>
-            <div><button id="stopbutton">Stop camera</button></div>
-            <div class="output">
-                <img id="photo" alt="The screen capture will appear in this box.">
-            </div>
-        </div>
+    <style>
+        video {
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    </style>
 
-        <script>
-            /* JS comes here */
-            (function() {
-
-                var width = 320; // We will scale the photo width to this
-                var height = 0; // This will be computed based on the input stream
-
-                var streaming = false;
-
-                var video = null;
-                var canvas = null;
-                var photo = null;
-                var startbutton = null;
+   <h2>Capture Photo From Camera using Javascript</h2>
+   <button id="start-camera">Start Camera</button>
+   <video id="video" width="400" height="400" autoplay></video>
+   <button id="click-photo">Click Photo</button>
+   <canvas id="canvas"  width="400" height="400" ></canvas>
+    <a id="download-link" ></a>
 
 
-                function startup() {
-                    video = document.getElementById('video');
-                    canvas = document.getElementById('canvas');
-                    photo = document.getElementById('photo');
-                    startbutton = document.getElementById('startbutton');
+   <script>
+       let camera_button = document.querySelector("#start-camera");
+       let video = document.querySelector("#video");
+       let click_button = document.querySelector("#click-photo");
+       let canvas = document.querySelector("#canvas");
 
-                    navigator.mediaDevices.getUserMedia({
-                        video: true,
-                        audio: false
-                    })
-                        .then(function(stream) {
-                            video.srcObject = stream;
-                            video.play();
-                        })
-                        .catch(function(err) {
-                            console.log("An error occurred: " + err);
-                        });
+       camera_button.addEventListener('click', async function() {
+           let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+           video.srcObject = stream;
+       });
 
-                    video.addEventListener('canplay', function(ev) {
-                        if (!streaming) {
-                            height = video.videoHeight / (video.videoWidth / width);
+       click_button.addEventListener('click', function() {
+           canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+           let image_data_url = canvas.toDataURL('image/jpeg');
+           // data url of the image
+           console.log(image_data_url);
 
-                            if (isNaN(height)) {
-                                height = width / (4 / 3);
-                            }
-                            video.setAttribute('width', width);
-                            video.setAttribute('height', height);
-                            canvas.setAttribute('width', width);
-                            canvas.setAttribute('height', height);
-                            streaming = true;
-                        }
-                    }, false);
+            /*// save to URL
+           canvas.toBlob(
+               blob => {
+                   const anchor = document.getElementById('download-link');
+                   anchor.href = URL.createObjectURL(blob);
+               },
+               'image/jpeg',
+               0.9,
+           );*/
+           canvas.toBlob(
+               blob => {
+                   const anchor = document.createElement('a');
+                   anchor.download = 'Photo_'+new Date().toISOString().slice(0, 22)+'.png'; // optional, but you can give the file a name
+                   anchor.href = URL.createObjectURL(blob);
+                   anchor.click(); // ✨ magic!
+                   URL.revokeObjectURL(anchor.href); // remove it from memory and save on memory! 😎
 
-                    startbutton.addEventListener('click', function(ev) {
-                        takepicture();
-                        ev.preventDefault();
-                    }, false);
+               }, 'image/png', 1
 
-                    clearphoto();
-                }
-                function clearphoto() {
-                    var context = canvas.getContext('2d');
-                    context.fillStyle = "#AAA";
-                    context.fillRect(0, 0, canvas.width, canvas.height);
+           );
 
-                    var data = canvas.toDataURL('image/png');
-                    photo.setAttribute('src', data);
-                }
+       });
+   </script>
 
-                function takepicture() {
-                    var context = canvas.getContext('2d');
-                    if (width && height) {
-                        canvas.width = width;
-                        canvas.height = height;
-                        context.drawImage(video, 0, 0, width, height);
 
-                        var data = canvas.toDataURL('image/png');
-                        photo.setAttribute('src', data);
-                    } else {
-                        clearphoto();
-                    }
-                }
-                window.addEventListener('load', startup, false);
-            })();
-        </script>
-    </div>-->
+
 </div>
 </body>
 </html>

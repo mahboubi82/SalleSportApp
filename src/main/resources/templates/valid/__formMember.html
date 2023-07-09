@@ -144,7 +144,7 @@
                                         <button type="button" id="start-camera">Start Camera</button>
                                         <video id="video" width="200" height="200" autoplay></video>
                                         <button type="button" id="click-photo">Click Photo</button>
-                                        <canvas id="canvas"  width="180" height="150" ></canvas>
+                                        <canvas id="canvas"  width="200" height="200" ></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -199,8 +199,7 @@
                                     let image_data_url = canvas.toDataURL('image/jpeg');
                                     // data url of the image
                                     console.log(image_data_url);
-                                    document.getElementById('imagePreview').innerHTML =
-                                        '<img src="'+image_data_url+'"/>';
+
 
                                     /*// save to URL
                                    canvas.toBlob(
@@ -252,11 +251,8 @@
                                     object-fit: cover;
                                     border-radius: 50%;
                                 }
-                                canvas{
-
-                                }
                             </style>
-
+                        
                     </div>
                 </div>
             </div>
